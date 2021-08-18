@@ -1,8 +1,17 @@
-import {memo, useState} from "react";
+import {memo, useCallback, useMemo, useState} from "react";
 
 function App() {
     const [n, setN] = useState(0);
-    const [m, setM] = useState(0);
+    const [m] = useState(0);
+
+    // const childFunc = useMemo(() => {
+    //     return (() => {
+    //         console.log(m);
+    //     })
+    // }, [m]);
+    const childFunc = useCallback(() => {
+        console.log(m);
+    }, [m]);
 
     return (
         <div id="n">
@@ -13,11 +22,7 @@ function App() {
             }}>n+1
             </button>
             <hr/>
-            <Child data={m}/>
-            <button onClick={() => {
-                setM(i => i + 1);
-            }}>m+1
-            </button>
+            <Child data={m} func={childFunc}/>
         </div>
     );
 }
@@ -25,7 +30,7 @@ function App() {
 const Child = memo((props) => {
     console.log("使用 memo() 对 Child 组件进行封装可以使 Child 组件只在 props 发生变化时才执行");
     return (
-        <div>Child：{props.data}</div>
+        <div onClick={props.func}>Child：{props.data}</div>
     )
 });
 
