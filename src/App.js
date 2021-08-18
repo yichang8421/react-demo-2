@@ -1,36 +1,14 @@
-import {useState, useEffect} from "react";
+import {useState, useLayoutEffect} from "react";
 
 function App() {
     const [n, setN] = useState(0);
 
-    // componentDidMount
-    useEffect(() => {
-        console.log("只在第一次渲染时执行");
-    }, []);
-
-    // componentDidUpdate (Except for the first time)
-    useEffect(() => {
-        if (n > 0)
-            console.log("除第一次渲染以外，n 更新就执行");
+    useLayoutEffect(() => {
+        document.getElementById('n').innerText = `n:1000`;
     }, [n]);
 
-    // componentDidUpdate
-    useEffect(() => {
-        console.log("任何变化都执行");
-    });
-
-    // componentWillUnmount
-    useEffect(() => {
-        const id = setInterval(() => {
-            console.log('carry out');
-        }, 1000)
-        return () => {
-            window.clearInterval(id);
-        }
-    }, []);
-
     return (
-        <div>
+        <div id="n">
             n: {n}
             <br/>
             <button onClick={() => {
