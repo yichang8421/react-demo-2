@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, createContext, useContext} from "react";
+
+const C = createContext(null);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [n, setN] = useState(0);
+    const api = {n, setN};
+
+    return (
+        <C.Provider value={api}>
+            <Child/>
+        </C.Provider>
+    );
 }
+
+const Child = () => {
+    const {n, setN} = useContext(C);
+
+    return (
+        <div>
+            child n: {n}
+            <br/>
+            <button onClick={() => {
+                setN(i => i + 1);
+            }}>+1
+            </button>
+        </div>
+    );
+};
 
 export default App;
