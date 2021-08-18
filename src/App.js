@@ -1,10 +1,14 @@
-import {useState, useLayoutEffect} from "react";
+import {useState, useLayoutEffect, useEffect} from "react";
 
 function App() {
     const [n, setN] = useState(0);
 
+    useEffect(() => {
+        console.log(1);
+    },[n])
+
     useLayoutEffect(() => {
-        document.getElementById('n').innerText = `n:1000`;
+        console.log(2);
     }, [n]);
 
     return (
