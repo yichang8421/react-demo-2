@@ -1,4 +1,3 @@
-import React, {forwardRef, useRef} from "react";
 import useList from "./hooks/useList";
 
 function App() {
@@ -15,7 +14,8 @@ function App() {
                                 {item.name}
                                 <button onClick={() => {
                                     deleteIndex(index);
-                                }}>x</button>
+                                }}>x
+                                </button>
                             </li>
                         )
                     }
