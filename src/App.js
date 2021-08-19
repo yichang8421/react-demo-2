@@ -1,20 +1,29 @@
 import React, {forwardRef, useRef} from "react";
+import useList from "./hooks/useList";
 
 function App() {
-    const buttonRef = useRef(null);
+    const {list, deleteIndex} = useList();
+    console.log(list);
     return (
         <div>
-            <Button ref={buttonRef}>自定义按钮</Button>
-        </div>
-    );
-}
+            <h1>List</h1>
+            {list ? (
+                <ol>
+                    {
+                        list.map((item, index) =>
+                            <li key={item.id}>
+                                {item.name}
+                                <button onClick={() => {
+                                    deleteIndex(index);
+                                }}>x</button>
+                            </li>
+                        )
+                    }
 
-const Button = forwardRef(function (props, ref) {
-    console.log(props);
-    console.log(ref);
-    return (
-        <button className="child" {...props} ref={ref}></button>
-    );
-})
+                </ol>
+            ) : ("加载中...")}
+        </div>
+    )
+}
 
 export default App;
